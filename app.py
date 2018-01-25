@@ -1,4 +1,5 @@
 from flask import Flask
+from flask import render_template
 app = Flask(__name__)
 
 print("hello world")
@@ -13,6 +14,7 @@ print("hello world")
 @app.route("/")
 def hello():
 	# business logic goes here
+	
 	a = 1
 	b = 2
 	c = "Kenny1"
@@ -22,7 +24,7 @@ def hello():
 
 	# by default, Flask requires return a String
 	# goal is to learn how to return an .html file
-	return d
+	return render_template('index.html', message = d)
 
 @app.route("/kenny")
 def kenny():
