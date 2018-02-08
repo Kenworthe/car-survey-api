@@ -15,9 +15,15 @@
 
 <body>
 
-    <h1>{{message}}</h1>
-    <p>Subtitle Goes Here</p>
-    <p>Form Goes Here</p>
+	<div id="question-card">
+		<h1>{{question}}</h1>
+		<ul>
+			{% for choice in choice_list %}
+			<li>{{choice}}</li>
+			{% endfor %}
+		</ul>
+
+	</div>
 
 </body>
 </html>
