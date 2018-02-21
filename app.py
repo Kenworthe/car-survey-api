@@ -1,5 +1,7 @@
 from flask import Flask
 from flask import render_template
+from flask import request
+from flask import jsonify
 import json
 
 app = Flask(__name__)
@@ -17,21 +19,41 @@ with open("seeds.json") as json_data:
 # 	print(word)
 
 
-@app.route("/")
+@app.route("/", methods=['GET', 'POST'])
 def hello():
-	# business logic goes here
+
+	if request.method == 'GET':
+		question = seeds["question1"]["question"]
+		choice_list = seeds["question1"]["choices"]
+
+		return render_template('index.html', question = question, choice_list = choice_list)
+
+	if request.method == 'POST':
 	
-	# question = "Question from DB goes here!"
-	# choice_list = ["choice A", "choice B", "choice C", "choice Z"]
+		question = request.form.get('question')
+		selection = request.form.get('selection')
 
-	question = seeds["question1"]["question"]
-	choice_list = seeds["question1"]["choices"]
+		print(question + ' ' + selection)
 
-	return render_template('index.html', question = question, choice_list = choice_list)
+		# save choice from POST json to "selected choices object"
+
+		# use business logic to determine next question based on that choice
+
+		# pull next question from DB
+
+		#return JSON for next question as "data"
+
+		data = {}
+		return jsonify(data)
+
 
 @app.route("/kenny")
 def kenny():
 	return "This is kenny's profile page."
 
+
 # Instructions on how to launch our Flask server: 
-# Type into Terminal:  FLASK_APP=app.py flask run
+# Type into Terminal:  python3 app.py
+
+if __name__ == '__main__':
+    app.run(debug=True)

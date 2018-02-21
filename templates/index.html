@@ -9,21 +9,27 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <!-- links go here -->
-	<link rel="stylesheet" type="text/css" href="/static/css/style.css">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
 	
 </head>
 
 <body>
 
 	<div id="question-card">
-		<h1>{{question}}</h1>
-		<ul>
-			{% for choice in choice_list %}
-			<li>{{choice}}</li>
-			{% endfor %}
-		</ul>
+		<form role="form" method="POST" onsubmit="return false;">
 
+			<h1 id="question">{{question}}</h1>
+
+			{% for choice in choice_list %}
+			<input type="radio" name="choice" value="{{choice}}"> {{choice}}<br>
+			{% endfor %}
+
+			<button type="submit">Next</button>
+		</form>
 	</div>
 
+<!-- Scripts go below here -->
+<script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='scripts/script.js') }}"></script>
 </body>
 </html>
