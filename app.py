@@ -2,11 +2,20 @@ from flask import Flask
 from flask import render_template
 from flask import request
 from flask import jsonify
+from flask_pymongo import PyMongo
 import json
+
+print("hello world")
 
 app = Flask(__name__)
 
-print("hello world")
+app.config['MONGO_DBNAME'] = 'pythonTest'
+app.config['MONGO_URI'] = 'mongodb://localhost:27017/pythonTest'
+
+mongo = PyMongo(app)
+
+print("database is refreshed!")
+# print(mongo.db.find_many({}))
 
 seeds = {}
 with open("seeds.json") as json_data:
@@ -50,6 +59,38 @@ def hello():
 @app.route("/kenny")
 def kenny():
 	return "This is kenny's profile page."
+
+@app.route("/cars/<make>", methods=['GET'])
+def fetchOneCar(make):
+	results = mongo.db.find_one({"make": make})
+	return (results)
+
+@app.route("/refreshCars", methods=['GET'])
+def refreshCars():
+
+	mongo.db.cars.delete_many({})
+
+	mongo.db.cars.insert_many([
+		{
+			"make":"Honda",
+			"model":"CR-V",
+			"year":"2005", 
+			"bodyType":"Luxury Sports SUV/Supercar"
+		},
+		{
+			"make":"Toyota",
+			"model":"RAV4",
+			"year":"2018", 
+			"bodyType":"Large Coupe"
+		},
+		{
+			"make":"Tesla",
+			"model":"Model S",
+			"year":"2017", 
+			"bodyType":"Electric"
+		},
+	])
+	return "done!"
 
 
 # Instructions on how to launch our Flask server: 
