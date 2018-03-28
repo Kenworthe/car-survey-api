@@ -3,6 +3,7 @@ from flask import render_template
 from flask import request
 from flask import jsonify
 from flask_pymongo import PyMongo
+from bson import json_util
 import json
 
 print("hello world")
@@ -17,6 +18,7 @@ mongo = PyMongo(app)
 print("database is refreshed!")
 # print(mongo.db.find_many({}))
 
+# TODO: REPLACE SEEEDS.JSON WITH DB INFO CONFIG.JSON
 seeds = {}
 with open("seeds.json") as json_data:
 	seeds = json.load(json_data)
@@ -29,13 +31,20 @@ with open("seeds.json") as json_data:
 
 
 @app.route("/", methods=['GET', 'POST'])
-def hello():
+def home():
 
 	if request.method == 'GET':
-		question = seeds["question1"]["question"]
-		choice_list = seeds["question1"]["choices"]
+		# question = seeds["question1"]["question"]
+		# choice_list = seeds["question1"]["choices"]
 
-		return render_template('index.html', question = question, choice_list = choice_list)
+		results = list(mongo.db.questions.find({}))
+		print(results)
+
+		first = results[0]
+
+		# return json.dumps(results, default=json_util.default)
+
+		return render_template('index.html', question = first["question"], choice_list = first["choices"])
 
 	if request.method == 'POST':
 	
@@ -55,15 +64,24 @@ def hello():
 		data = {}
 		return jsonify(data)
 
-
 @app.route("/kenny")
 def kenny():
 	return "This is kenny's profile page."
 
+@app.route("/cars", methods=['GET'])
+def fetchAllCars():
+	results = list(mongo.db.cars.find({}))
+	return json.dumps(results, default=json_util.default)
+
+@app.route("/questions", methods=['GET'])
+def fetchAllQuestions():
+	results = list(mongo.db.questions.find({}))
+	return json.dumps(results, default=json_util.default)
+
 @app.route("/cars/<make>", methods=['GET'])
 def fetchOneCar(make):
-	results = mongo.db.find_one({"make": make})
-	return (results)
+	results = list(mongo.db.cars.find({"make": make}))
+	return json.dumps(results, default=json_util.default)
 
 @app.route("/refreshCars", methods=['GET'])
 def refreshCars():
@@ -89,6 +107,25 @@ def refreshCars():
 			"year":"2017", 
 			"bodyType":"Electric"
 		},
+	])
+	return "done!"
+
+@app.route("/refreshQuestions", methods=['GET'])
+def refreshQuestions():
+
+	mongo.db.questions.delete_many({})
+
+	mongo.db.questions.insert_many([
+		{
+			"id": "1",
+			"question": "Would you want a new or used car?",
+			"choices": ["New", "Used"]
+		},
+		{
+			"id": "2",
+			"question": "What is your budget?",
+			"choices": []
+		}
 	])
 	return "done!"
 
