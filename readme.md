@@ -10,3 +10,7 @@
   - process logic upon receiving POST
   - return next question JSON to front end
   - OR return final answer jSON to front end.
+
+# To run: 
+- start mongodb with `mongod`
+- run `python3 app.py`

@@ -1,0 +1,12 @@
+<div id="question-card">
+	<form role="form" method="POST" onsubmit="return false;">
+
+		<h1 id="question">{{question}}</h1>
+
+		{% for choice in choice_list %}
+		<input type="radio" name="choice" value="{{choice}}"> {{choice}}<br>
+		{% endfor %}
+
+		<button type="submit">Next</button>
+	</form>
+</div>

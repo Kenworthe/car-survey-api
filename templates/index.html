@@ -15,21 +15,28 @@
 
 <body>
 
-	<div id="question-card">
-		<form role="form" method="POST" onsubmit="return false;">
+	<div class="question-card-container">
 
-			<h1 id="question">{{question}}</h1>
+		<!-- TODO: {% question-card.html %} -->
+		<!-- {% include 'question-card.html' %} -->
 
-			{% for choice in choice_list %}
-			<input type="radio" name="choice" value="{{choice}}"> {{choice}}<br>
-			{% endfor %}
+		<div id="question-card">
+			<form role="form" method="POST" onsubmit="return false;">
 
-			<button type="submit">Next</button>
-		</form>
+				<h1 id="question">{{question}}</h1>
+
+				{% for choice in choice_list %}
+				<input type="radio" name="choice" value="{{choice}}"> {{choice}}<br>
+				{% endfor %}
+
+				<button type="submit">Next</button>
+			</form>
+		</div>
 	</div>
 
 <!-- Scripts go below here -->
 <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='scripts/script.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='scripts/logic.js') }}"></script>
 </body>
 </html>

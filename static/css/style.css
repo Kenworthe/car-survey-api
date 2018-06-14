@@ -2,7 +2,18 @@ h1 {
     /* color: aquamarine; */
 }
 
+.question-card-container {
+    display: flex;
+    min-width: 800px;
+    height: 800px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 div#question-card {
     /* background-color: pink; */
+    width: 500px;
+    border: 1px solid black;
 }
 
