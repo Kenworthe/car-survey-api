@@ -14,3 +14,10 @@
 # To run: 
 - start mongodb with `mongod`
 - run `python3 app.py`
+
+# To run with Docker: 
+`docker build -t car-survey-api`  
+
+`docker run -p 5000:5000 car-survey-api`  
+
+Then navigate to 0.0.0.0:5000  

@@ -1,0 +1,20 @@
+{
+	"car1": {
+		"make":"Honda",
+		"model":"CR-V",
+		"year":"2005", 
+		"bodyType":"Luxury Sports SUV/Supercar"
+	},
+	"car2": {
+		"make":"Toyota",
+		"model":"RAV4",
+		"year":"2018", 
+		"bodyType":"Large Coupe"
+	},
+	"car3": {
+		"make":"Tesla",
+		"model":"Model S",
+		"year":"2017", 
+		"bodyType":"Electric"
+	}
+}
