@@ -31,17 +31,15 @@ with open("seeds.json") as json_data:
 def home():
 
 	if request.method == 'GET':
-		# question = seeds["question1"]["question"]
-		# choice_list = seeds["question1"]["choices"]
 
-		results = list(mongo.db.questions.find({}))
-		print(results)
+		# results = list(mongo.db.questions.find({}))
+		# print(results)
 
-		first = results[0]
+		# first = results[0]
 
 		# return json.dumps(results, default=json_util.default)
-
-		return render_template('index.html', question = first["question"], choice_list = first["choices"])
+		return 'hello!'
+		# return render_template('index.html', question = first["question"], choice_list = first["choices"])
 
 	if request.method == 'POST':
 	
@@ -131,4 +129,7 @@ def refreshQuestions():
 # Type into Terminal:  python3 app.py
 
 if __name__ == '__main__':
-    app.run(debug=True)
+	app.run(host='0.0.0.0')
+    # app.run(debug=True)
+	# app.run()
+	
