@@ -1,8 +1,7 @@
-from flask import Flask
-from flask import render_template
-from flask import request
-from flask import jsonify
+from flask import Flask, render_template, request, jsonify
 from flask_pymongo import PyMongo
+from flask_graphql import GraphQLView
+import graphene
 from bson import json_util
 import json
 
