@@ -1,7 +1,5 @@
 from flask import Flask, render_template, request, jsonify
 from flask_pymongo import PyMongo
-from flask_graphql import GraphQLView
-import graphene
 from bson import json_util
 import json
 
