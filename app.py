@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, request, jsonify
 from flask_pymongo import PyMongo
 from bson import json_util
 import json
@@ -15,32 +15,19 @@ mongo = PyMongo(app)
 
 def get_questions_from_seed():
 	with app.open_resource('static/questions.json') as json_data:
-		# questions = read(json_data)
 		questions = json.load(json_data)
 		return questions
 
 def get_cars_from_seed():
 	with app.open_resource('static/cars.json') as json_data:
-		# questions = read(json_data)
 		cars = json.load(json_data)
 		return cars
 
-
-@app.route("/", methods=['GET', 'POST'])
+@app.route("/", methods=['GET'])
 def home():
 
 	if request.method == 'GET':
-
 		return 'Hello, welcome to the car-survey API! Visit /api/questions or /api/cars for data.'
-
-	if request.method == 'POST':
-	
-		question = request.form.get('question')
-		selection = request.form.get('selection')
-
-		print(question + ' ' + selection)
-
-		# save choice from POST json to "selected choices object"
 
 		# use business logic to determine next question based on that choice
 
@@ -64,11 +51,6 @@ def fetchAllCars():
 	# return json.dumps(results, default=json_util.default)
 	results = get_cars_from_seed()
 	return jsonify(results)
-
-# @app.route("/cars/<make>", methods=['GET'])
-# def fetchOneCar(make):
-# 	results = list(mongo.db.cars.find({"make": make}))
-# 	return json.dumps(results, default=json_util.default)
 
 
 # Instructions on how to launch our Flask server: 
